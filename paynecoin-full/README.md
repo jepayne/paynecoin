@@ -20,7 +20,7 @@ bash paynecoin_nodes.sh kill
 
 # 1. Initializing nodes
 
-Nodes are virtual representations of the agents that will be interacting with the blockchain. First they have to be initialized, at which point they will be assigned a port in the local host (e.g. `http://localhost:5000/`). Think of each node as a separate individual with their own copy of the blockchain.
+Nodes are virtual representations of the agents that will be interacting with the blockchain. First they have to be initialized, at which point they will be assigned a port in the local host (e.g. `http://localhost:5000/`). Think of each node as a separate individual with their own copy of the blockchain. The API constructed here is simply a structured way for the nodes to communicate updates with each other.
 
 ## 1.1. Manual node initialization
 

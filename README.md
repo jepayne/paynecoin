@@ -59,7 +59,7 @@ For a very quick start, navigate to the paynecoin-lite subfolder (e.g. `cd ~/pay
 python simulation.py
 ```
 
-# 3. Running paynecoin
+# 3. Running paynecoin-full
 
 Look at the [paynecoin-full readme](/paynecoin-full/README.md) for motivation, homework 3 questions, and example code.
 
