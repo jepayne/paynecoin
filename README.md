@@ -52,7 +52,7 @@ Forthcoming
 
 # 2. Running paynecoin-lite
 
-Look at the [paynecoin-lite readme](/paynecoin-lite/README.md) for motivation, homework 2 questions, and example code.
+Look at the [paynecoin-lite readme](/paynecoin-lite/README.md) for motivation, possible homework 2 questions, and example code.
 
 For a very quick start, navigate to the paynecoin-lite subfolder (e.g. `cd ~/paynecoin/paynecoin-lite`) and run the following in your (poetry) shell:
 ```sh
@@ -61,7 +61,7 @@ python simulation.py
 
 # 3. Running paynecoin-full
 
-Look at the [paynecoin-full readme](/paynecoin-full/README.md) for motivation, homework 3 questions, and example code.
+Look at the [paynecoin-full readme](/paynecoin-full/README.md) for motivation, possible homework 3 questions, and example code.
 
 For a very quick start, navigate to the paynecoin-full subfolder (e.g. `cd ~/paynecoin/paynecoin-full`) and run the following in your (poetry) shell:
 ```sh

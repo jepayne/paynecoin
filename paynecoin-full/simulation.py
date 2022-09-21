@@ -1,6 +1,6 @@
 """
 Before running this, spawn 5 nodes in a terminal: bash payne_nodes.sh init 5
-The spawned nodes will be on 5000, 5001, 5002, 5003, 5004 by default with uuids
+The spawned nodes will be on 5001, 5002, 5003, 5004, 5005 by default with uuids
 alice, bob, carol, dave, and eve respectively.
 """
 
@@ -13,7 +13,7 @@ from hashlib import sha256
 import random
 
 
-def req_endpoint(endpoint, port=5000, data=None):
+def req_endpoint(endpoint, port=5001, data=None):
     """Send a request to a specific endpoint on a specific port"""
     # Check valid request
     get_reqs = ["/nodes/resolve", "/chain", "/mine", "/wallets"]
@@ -52,9 +52,9 @@ def get_balances(uuids):
     return balances
 
 
-# 5 miners with their 5 wallets at ports 5000, 5001, 5002, 5003, 5004
+# 5 miners with their 5 wallets at ports 5001, 5002, 5003, 5004, 5005
 nodes_uuids = ["alice", "bob", "carol", "dave", "eve"]
-ports = list(range(5000, 5000 + len(nodes_uuids)))
+ports = list(range(5001, 5001 + len(nodes_uuids)))
 
 # nodes_dict is the mapping of node uuid (person's name) to port
 nodes_dict = dict(zip(nodes_uuids, ports))
@@ -101,7 +101,7 @@ for t in range(nperiods):
         req_endpoint("/nodes/resolve", port=node_port)
 
     # Update balances post-transaction and post-mining reward
-    current_balances = req_endpoint("/wallets", port=5000)
+    current_balances = req_endpoint("/wallets", port=5001)
     for uuid in nodes_uuids:
         if uuid in current_balances.keys():
             balances[uuid].append(current_balances[uuid]["balance"])

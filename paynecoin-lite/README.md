@@ -19,7 +19,7 @@ We recommend using the cryptography package (https://cryptography.io/en/latest/)
 Note that this is NOT a decentralized ledger - you and you alone can exclude friends from being able to make payments as you see fit. Later in the class we will investigate how to make a decentralized public ledger.
 
 # 2. Exercises:
-For all of the following, you will find the functions in utils.py and example code in simulation.py to be useful. We do not claim that this code is free of bugs. Feel free to change any part of the code in order to complete the exercises.
+For all of the following, you will find the functions in utils.py and example code in simulation.py to be useful. We do not claim that this code is free of bugs. Feel free to change any part of the code in order to complete the exercises. You will be asked to complete a subset of these on homework 2.
 
 ## 2.1. Blockchain simulation
 1. Suppose you have 2 friends, Alice and Bob. Generate public/private key pairs for each of them. Create a blockchain that starts with you owning 100 tokens and has 5 or more blocks, each with at least 2 transactions between you, Alice, and Bob. Call this your 'sample blockchain.' Call the valid_chain() method and check that this returns True.

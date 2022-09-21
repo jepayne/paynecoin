@@ -155,7 +155,7 @@ if __name__ == "__main__":
 
     parser = ArgumentParser()
     parser.add_argument(
-        "-p", "--port", default=5000, type=int, help="port to listen on"
+        "-p", "--port", default=5001, type=int, help="port to listen on"
     )
     parser.add_argument(
         "-u", "--uuid", default=None, type=str, help="unique identifier for node"

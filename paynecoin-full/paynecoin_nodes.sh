@@ -11,7 +11,7 @@ else
         else
             END=$(($2-1))
         fi
-        BASE_PORT=5000
+        BASE_PORT=5001
         declare -a namearr=("alice" "bob" "carol" "dave" "eve" "frank" "george" "harry" "iris" "james")
         for i in $(seq 0 $END)
             do

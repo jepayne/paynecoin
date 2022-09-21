@@ -20,7 +20,7 @@ bash paynecoin_nodes.sh kill
 
 # 1. Initializing nodes
 
-Nodes are virtual representations of the agents that will be interacting with the blockchain. First they have to be initialized, at which point they will be assigned a port in the local host (e.g. `http://localhost:5000/`). Think of each node as a separate individual with their own copy of the blockchain. The API constructed here is simply a structured way for the nodes to communicate updates with each other.
+Nodes are virtual representations of the agents that will be interacting with the blockchain. First they have to be initialized, at which point they will be assigned a port in the local host (e.g. `http://localhost:5001/`). Think of each node as a separate individual with their own copy of the blockchain. The API constructed here is simply a structured way for the nodes to communicate updates with each other.
 
 ## 1.1. Manual node initialization
 
@@ -28,15 +28,15 @@ Initialize a node in the development server with
 ```sh
 python paynecoin/api.py
 ```
-This initializes a node in the default port, `5000`.
+This initializes a node in the default port, `5001`.
 You can initialize additional nodes in other ports by using the `-p <port>` option. For example,
 ```sh
-python paynecoin/api.py -p 5001
+python paynecoin/api.py -p 5002
 ```
 
 Each node is assigned an automatically-generated node UUID. However, you can specify a custom UUID for the node using the `-u <uuid>` option. For example,
 ```sh
-python paynecoin/api.py -u alice
+python paynecoin/api.py p 5002 -u bob
 ```
 Whenever a node mines a block, the reward will be associated to this node UUID.
 
@@ -44,12 +44,12 @@ Whenever a node mines a block, the reward will be associated to this node UUID.
 
 There is a simple auxiliary shell script that makes it easier to initialize and terminate nodes in bulk.
 The script is in [`paynecoin_nodes.sh`](paynecoin_nodes.sh).
-- **Initialize** a sequence of nodes associated to ports `5000, ..., 5000+(i-1)` by running
+- **Initialize** a sequence of nodes associated to ports `5001, ..., 5000+(i)` by running
 ```sh
 bash payne_nodes.sh init [i]
 ```
-where `[i]` is an optional integer; if none is specified, the program will initialize a single node in port `5000`.
-For example, you can initialize three nodes associated to ports `5000`, `5001`, and `5002` by running
+where `[i]` is an optional integer; if none is specified, the program will initialize a single node in port `5001`.
+For example, you can initialize three nodes associated to ports `5001`, `5002`, and `5003` by running
 ```sh
 bash tests/payne_nodes.sh init 3
 ```
@@ -152,6 +152,8 @@ An easy way to manage these requests interactively is to use a tool like [Postma
 </table>
 
 # 3. Exercises
+
+You will be asked to answer a subset of these on homework 3.
 
 # 3.1. Proof of work versus proof of stake
 
