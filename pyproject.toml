@@ -1,0 +1,23 @@
+[tool.poetry]
+name = "paynecoin"
+version = "0.2.0"
+description = ""
+authors = ["acarril <acarril@princeton.edu>", "rwag <robert.wagner@princeton.edu>"]
+
+[tool.poetry.dependencies]
+python = ">=3.8,<3.11"
+requests = "^2.26.0"
+Flask = "^2.0.1"
+ipykernel = "^6.0.3"
+notebook = ">=6.4.1"
+jsonify = "^0.5"
+numpy = "^1.21.4"
+matplotlib = "^3.4.3"
+cryptography = ">=37.0.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
