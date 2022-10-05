@@ -26,17 +26,17 @@ Nodes are virtual representations of the agents that will be interacting with th
 
 Initialize a node in the development server with
 ```sh
-python paynecoin/api.py
+python api.py
 ```
 This initializes a node in the default port, `5001`.
 You can initialize additional nodes in other ports by using the `-p <port>` option. For example,
 ```sh
-python paynecoin/api.py -p 5002
+python api.py -p 5002
 ```
 
 Each node is assigned an automatically-generated node UUID. However, you can specify a custom UUID for the node using the `-u <uuid>` option. For example,
 ```sh
-python paynecoin/api.py p 5002 -u bob
+python api.py -p 5002 -u bob
 ```
 Whenever a node mines a block, the reward will be associated to this node UUID.
 
@@ -46,12 +46,12 @@ There is a simple auxiliary shell script that makes it easier to initialize and 
 The script is in [`paynecoin_nodes.sh`](paynecoin_nodes.sh).
 - **Initialize** a sequence of nodes associated to ports `5001, ..., 5000+(i)` by running
 ```sh
-bash payne_nodes.sh init [i]
+bash paynecoin_nodes.sh init [i]
 ```
 where `[i]` is an optional integer; if none is specified, the program will initialize a single node in port `5001`.
 For example, you can initialize three nodes associated to ports `5001`, `5002`, and `5003` by running
 ```sh
-bash tests/payne_nodes.sh init 3
+bash paynecoin_nodes.sh init 3
 ```
 - **List** the jobs associated to the running nodes using `bash paynecoin_nodes.sh list`.
 - **Kill**  all the initialized nodes using `bash paynecoin_nodes.sh kill`
