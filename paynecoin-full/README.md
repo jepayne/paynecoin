@@ -165,6 +165,30 @@ You will be asked to answer a subset of these on homework 3.
 1. As this code exists, there are no checks against an individual spending more than their balance. What would need to change in the code to fix this? (No code necessary)
 2. This blockchain does not provide encryption. What would an 'attack' based on the lack of encryption look like? What would need to change to provide encryption? (No code necessary)
 
+# 3.3. Stablecoins
+
+Consider a cryptocurrency which initially has a fixed mining reward of \$1.
+Throughout this question, use the following specification of money demand. Let real money demand be denoted by
+$$
+\begin{align*}
+    \gamma_t &= A e^{\mu t} e^{-\frac{1}{2}\sigma^2} \epsilon_t,
+\end{align*}
+$$
+where $\log(\epsilon_t)$ is a normally distributed random variable with mean $0$ and variance $\sigma^2$. Under this specification, money demand grows at rate $\mu$ with i.i.d. normal shocks around the mean growth rate. The mean is $\mathbb{E}[\gamma_t] = A e^{\mu t}$. Let money supply be denoted by $M_t$. Then, we have that the price level can be derived from money market clearing,
+$$
+\begin{align*}
+    \gamma_t ={}& \frac{M_t}{P_t} \\
+    \implies \quad P_t ={}& \frac{M_t}{\gamma_t}.
+\end{align*}
+$$
+For all simulations consider discrete time with 100 periods.
+
+1. Simulate demand with trend growth and i.i.d. fluctuations (hint: set simple/sensible values for unknown parameters). Simulate money supply (hint: you don't need to simulate blockchain transactions). Compute and plot prices for each period.
+2. Can you set a fixed mining reward such that the price is stable in trends? Explain. What is your answer if you can set an arbitrary schedule for reward in each period? Implement and plot a solution that stabilizes price in trend.
+3. Suppose that we know the demand shock $\epsilon_t$ one period in advance. Now set a  mining reward schedule to eliminate all volatility in the price, plotting your result. Briefly explain.
+4. Suppose that we don't know $\epsilon_t$ in advance but it is mean reverting. To what extent can the price be stabilized? Discuss what can go wrong with this approach.
+
+
 # 4. Sample code
 
 See [simulation.py](simulation.py).
