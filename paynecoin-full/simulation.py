@@ -1,5 +1,5 @@
 """
-Before running this, spawn 5 nodes in a terminal: bash payne_nodes.sh init 5
+Before running this, spawn 5 nodes in a terminal: bash paynecoin_nodes.sh init 5
 The spawned nodes will be on 5001, 5002, 5003, 5004, 5005 by default with uuids
 alice, bob, carol, dave, and eve respectively.
 """
