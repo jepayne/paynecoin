@@ -21,9 +21,6 @@ class Blockchain:
         :param tx: The transaction dict
         :return: The index of the Block that will hold this transaction
         """
-        # TODO: Verify that the transaction is validly signed
-
-        # end TODO
 
         # Verify that the sender has enough funds to send this amount
         balances = self.get_balances()
@@ -94,12 +91,9 @@ class Blockchain:
             if block["previous_hash"] != last_block_hash:
                 return False
 
-            # If this blockchain implemented proof of work, we would need to check
-            # that here for each block
-
-            # TODO: check that transactions are all validly signed in this block
-
-            # end TODO
+            # Check that the Proof of Work is correct
+            if not self.valid_proof(block):
+                return False
 
             last_block = block
             current_index += 1
@@ -146,6 +140,7 @@ class Blockchain:
         """
         Simple Proof of Work (PoW) algorithm:
         Adjust the nonce such that the hash of a block with that nonce contains leading 5 zeroes
+        TODO: the block should already have the mining reward in it, maybe
 
         :param last_block: <dict> last block
         :return: <int>
@@ -156,6 +151,10 @@ class Blockchain:
         while self.valid_proof(block) is False:
             nonce += 1
             block["nonce"] = nonce
+        # If we hit this point, we have found a valid nonce.
+        # TODO: Add a reward transaction to the block. From who? No idea. To who? Should be argument to proof_of_work
+        # Maybe I should specify an initial money supply in the constructor, and people take rewards from that?
+        # Maybe I should have a special case for mining rewards in the balance checking code
         return nonce
 
     @staticmethod
