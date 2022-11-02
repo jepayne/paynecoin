@@ -11,11 +11,19 @@ from utils import (
 What do we need to do here?
 
 Instantiate set of users with addresses and balances
+    Not sure I need this! Current blockchain keeps track of balances, so adding blocks may be enough
+    Maybe adding blocks needs a user to be specified, and the user's balance is updated
 Instantiate set of blockchains, one for each user
 Way for updates (new blocks) to propogate to other chains
+    self.valid_chain(self.chain + [new_block])
 Way for blockchains to accept / reject blocks
+    See above
 Propogation of transactions
+    Probably have to do this synchronously
 
+
+
+How do I do this asynchronously?
 """
 
 
