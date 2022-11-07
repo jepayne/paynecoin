@@ -27,16 +27,18 @@ class Blockchain:
         sender = tx["sender"]
         receiver = tx["receiver"]
         amount = tx["amount"]
-        if (sender not in balances.keys()) or (amount > balances[sender]):
+        # sender == "0" specifies the mining reward
+        if ((sender not in balances.keys()) or (amount > balances[sender])) and (sender != "0"):
             raise ValueError("Not enough money to send")
         else:
             self.current_transactions.append(tx)
-        return self.last_block["index"] + 1
+        return
 
     def get_balances(self):
         """Generate a dict of balances for each public key
         :return: A dict of balances"""
-        balances = {}
+        # Put in the mining reward as an address
+        balances = {"0": 0}
         # Start with whatever was received in the genesis block
         for tx in self.chain[0]["transactions"]:
             receiver = tx["receiver"]
@@ -77,7 +79,8 @@ class Blockchain:
         # Check that balances are positive
         balances = self.get_balances()
         for sender, balance in balances.items():
-            if balance < 0:
+            # Skip the mining reward balance
+            if (balance < 0) & (sender != "0"):
                 return False
 
         # Cycle through each block in the chain and check conditions
@@ -100,7 +103,7 @@ class Blockchain:
 
         return True
 
-    def new_block(self, previous_hash):
+    def new_block(self, previous_hash=None):
         """
         Create a new Block in the Blockchain
         :param previous_hash: Hash of previous Block
@@ -151,11 +154,8 @@ class Blockchain:
         while self.valid_proof(block) is False:
             nonce += 1
             block["nonce"] = nonce
-        # If we hit this point, we have found a valid nonce.
-        # TODO: Add a reward transaction to the block. From who? No idea. To who? Should be argument to proof_of_work
-        # Maybe I should specify an initial money supply in the constructor, and people take rewards from that?
-        # Maybe I should have a special case for mining rewards in the balance checking code
-        return nonce
+        # If we hit this point, we have found a valid nonce and saved it in block.
+        return
 
     @staticmethod
     def valid_proof(block):
@@ -167,4 +167,4 @@ class Blockchain:
 
         block_string = json.dumps(block, sort_keys=True).encode()
         guess_hash = sha256(block_string).hexdigest()
-        return guess_hash[:5] == "00000"
+        return guess_hash[:3] == "000"

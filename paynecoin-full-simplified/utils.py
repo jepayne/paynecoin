@@ -57,23 +57,4 @@ def create_transaction(
         "amount": amount,
         "timestamp": int(time()),
     }
-
-    # TODO: Generate a signature for the transaction from the private key, tx["signature"] = ...
-
-    # end TODO
-
     return tx
-
-
-def is_from_sender(tx: dict) -> bool:
-    """
-    Verifies that a given transaction was sent from the sender
-    :param tx: The transaction dict
-    :return: <bool>
-    """
-
-    # TODO: return True if the transaction's signature is valid, else False
-
-    # end TODO
-
-    return True
