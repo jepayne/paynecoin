@@ -7,25 +7,9 @@ from utils import (
     create_transaction,
     public_key_to_string,
 )
-
-"""
-What do we need to do here?
-
-Instantiate set of users with addresses and balances
-    Not sure I need this! Current blockchain keeps track of balances, so adding blocks may be enough
-    Maybe adding blocks needs a user to be specified, and the user's balance is updated
-Instantiate set of blockchains, one for each user
-Way for updates (new blocks) to propogate to other chains
-    self.valid_chain(self.chain + [new_block])
-Way for blockchains to accept / reject blocks
-    See above
-Propogation of transactions
-    Probably have to do this synchronously
-
-
-
-How do I do this asynchronously?
-"""
+from copy import deepcopy
+import multiprocessing as mp
+from functools import partial
 
 # This could be a class method of the Blockchain class
 def mine(chain, miner):
@@ -33,7 +17,9 @@ def mine(chain, miner):
     # Create a block to mine. chain.current_transactions will be in there
     block_to_mine = chain.new_block()
     # Add the mining reward
-    reward = create_transaction(private_key=None, public_key="0", receiver=miner, amount=1)
+    reward = create_transaction(
+        private_key=None, public_key="0", receiver=miner, amount=1
+    )
     block_to_mine["transactions"].append(reward)
     # This updates the nonce in block_to_mine to solve the mining puzzle
     chain.proof_of_work(block_to_mine)
@@ -42,28 +28,48 @@ def mine(chain, miner):
 
 # Start out with our private and public keys for You, Alice, and Bob
 key_dict = {}
-for name in ["You", "Alice", "Bob"]:
+names = ["You", "Alice", "Bob"]
+for name in names:
     private_key, public_key = generate_keys()
     key_dict[name] = {"private_key": private_key, "public_key": public_key}
 
-# # Create our initial transaction by sending 100 tokens to yourself.
-# transaction0 = create_transaction(
-#     private_key=None,
-#     public_key=None,
-#     receiver=public_key_to_string(key_dict["You"]["public_key"]),
-#     amount=100,  # Start with 100 tokens
-# )
-
-ledger = Blockchain(starting_transactions=[])
-new_tx = create_transaction(
+starting_transactions = [
+    create_transaction(
         private_key=None,
-        public_key=public_key_to_string(key_dict["You"]["public_key"]),
-        receiver=public_key_to_string(key_dict["Alice"]["public_key"]),
-        amount=0,
+        public_key=0,
+        receiver=public_key_to_string(key_dict["You"]["public_key"]),
+        amount=10,  # Start with 10 tokens
     )
-ledger.add_transaction(new_tx)
-new_block = mine(ledger, public_key_to_string(key_dict["You"]["public_key"]))
-ledger.chain.append(new_block)
-print(ledger.get_balances())
+]
+
+# Create a copy of the blockchain for each person
+# Note that deepcopy is necessary here
+ledgers = {}
+for name in names:
+    ledgers[name] = Blockchain(starting_transactions=deepcopy(starting_transactions))
+
+# Add a transaction to each node
+new_tx = create_transaction(
+    private_key=None,
+    public_key=public_key_to_string(key_dict["You"]["public_key"]),
+    receiver=public_key_to_string(key_dict["Alice"]["public_key"]),
+    amount=2,
+)
+for name in names:
+    ledgers[name].add_transaction(deepcopy(new_tx))
+
+# In parallel, have each node try to mine a block
+# From StackOverflow: worker function takes in an int
+# With imap_unordered, the first result is the first task to finish
+p = mp.Pool(4)
+for result in p.imap_unordered(worker, range(20), chunksize=1):
+    if result == 0:
+        print("terminating")
+        p.terminate()
+        break
+print("done")
+# new_block = mine(ledger, public_key_to_string(key_dict["Bob"]["public_key"]))
+# ledger.chain.append(new_block)
+# print(ledger.get_balances())
 
 # %%

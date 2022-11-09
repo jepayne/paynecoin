@@ -2,7 +2,6 @@ from hashlib import sha256
 import json
 from time import time
 from urllib.parse import urlparse
-import requests
 
 
 class Blockchain:
@@ -13,7 +12,7 @@ class Blockchain:
         self.current_transactions = starting_transactions
         self.chain = []
         # Spawn the genesis block
-        self.new_block(previous_hash="1")
+        self.chain.append(self.new_block(previous_hash="1"))
 
     def add_transaction(self, tx: dict) -> int:
         """
@@ -28,7 +27,7 @@ class Blockchain:
         receiver = tx["receiver"]
         amount = tx["amount"]
         # sender == "0" specifies the mining reward
-        if ((sender not in balances.keys()) or (amount > balances[sender])) and (sender != "0"):
+        if (amount > balances.get(sender, 0)) and (sender != "0"):
             raise ValueError("Not enough money to send")
         else:
             self.current_transactions.append(tx)
@@ -120,8 +119,6 @@ class Blockchain:
 
         # Reset the current list of transactions
         self.current_transactions = []
-
-        self.chain.append(block)
         return block
 
     @property
@@ -143,7 +140,6 @@ class Blockchain:
         """
         Simple Proof of Work (PoW) algorithm:
         Adjust the nonce such that the hash of a block with that nonce contains leading 5 zeroes
-        TODO: the block should already have the mining reward in it, maybe
 
         :param last_block: <dict> last block
         :return: <int>
