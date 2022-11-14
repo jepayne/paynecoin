@@ -29,7 +29,9 @@ def public_key_to_string(public_key):
     return public_key.public_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PublicFormat.SubjectPublicKeyInfo,
-    ).decode("latin1")[28:-28] # A bit of a hack to get rid of trailing uninformative characters
+    ).decode("latin1")[
+        28:-28
+    ]  # A bit of a hack to get rid of trailing uninformative characters
 
 
 def string_to_public_key(public_key_string):
@@ -57,4 +59,23 @@ def create_transaction(
         "amount": amount,
         "timestamp": int(time()),
     }
+
+    # TODO: Generate a signature for the transaction from the private key, tx["signature"] = ...
+
+    # end TODO
+
     return tx
+
+
+def is_from_sender(tx: dict) -> bool:
+    """
+    Verifies that a given transaction was sent from the sender
+    :param tx: The transaction dict
+    :return: <bool>
+    """
+
+    # TODO: return True if the transaction's signature is valid, else False
+
+    # end TODO
+
+    return True

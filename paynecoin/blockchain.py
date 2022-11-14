@@ -1,11 +1,11 @@
 from hashlib import sha256
 import json
+import random
 from time import time
-from urllib.parse import urlparse
 
 
 class Blockchain:
-    def __init__(self, starting_transactions):
+    def __init__(self, starting_transactions: list):
         """Initialize the blockchain.
 
         :param starting_transactions: A list of transactions to start the blockchain with"""
@@ -20,6 +20,9 @@ class Blockchain:
         :param tx: The transaction dict
         :return: The index of the Block that will hold this transaction
         """
+        # TODO: Verify that the transaction is validly signed
+
+        # end TODO
 
         # Verify that the sender has enough funds to send this amount
         balances = self.get_balances()
@@ -68,7 +71,7 @@ class Blockchain:
                 balances[receiver] = amount
         return balances
 
-    def valid_chain(self, chain):
+    def valid_chain(self, chain: list):
         """
         Determine if a given blockchain is valid
         :param chain: A blockchain
@@ -96,6 +99,10 @@ class Blockchain:
             # Check that the Proof of Work is correct
             if not self.valid_proof(block):
                 return False
+
+            # TODO: check that transactions are all validly signed in this block
+
+            # end TODO
 
             last_block = block
             current_index += 1
@@ -136,7 +143,7 @@ class Blockchain:
         block_string = json.dumps(block, sort_keys=True).encode()
         return sha256(block_string).hexdigest()
 
-    def proof_of_work(self, block):
+    def proof_of_work(self, block: dict):
         """
         Simple Proof of Work (PoW) algorithm:
         Adjust the nonce such that the hash of a block with that nonce contains leading 5 zeroes
@@ -145,7 +152,9 @@ class Blockchain:
         :return: <int>
         """
 
-        nonce = 0
+        # Need beginning nonce to be random to simulate many nodes and not have
+        # the same PoW winner every time
+        nonce = random.randint(0, 1000000000)
         block["nonce"] = nonce
         while self.valid_proof(block) is False:
             nonce += 1
@@ -154,7 +163,7 @@ class Blockchain:
         return
 
     @staticmethod
-    def valid_proof(block):
+    def valid_proof(block: dict):
         """
         Validates the proof
         :param block <dict> Block to check
