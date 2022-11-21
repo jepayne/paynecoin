@@ -6,13 +6,18 @@ This repository contains the code for simulating a blockchain. This is a fiction
 - [1. Installation](#1-installation)
   - [1.1. Conda](#11-conda)
   - [1.2. Poetry](#12-poetry)
-  - [1.3. Windows Support](#13-windows-support)
-    - [1.3.1. Windows Subsystem for Linux](#131-windows-subsystem-for-linux)
-    - [1.3.2. Cygwin](#132-cygwin)
-- [2. Running the paynecoin-lite blockchain](#2-running-paynecoin-lite)
-- [3. Running the paynecoin-full blockchain](#3-running-paynecoin-full)
-- [4. Stablecoins]
-(#4-stablecoins)
+- [2. Running a centralized blockchain](#2-running-a-centralized-blockchain)
+  - [2.1. Motivation](#21-motivation)
+  - [2.2. Exercises](#22-exercises)
+    - [2.2.1. Blockchain simulation](#221-blockchain-simulation)
+    - [2.2.2. Proof of work](#222-proof-of-work)
+  - [2.3. Sample code](#23-sample-code)
+- [3. Running a decentralized blockchain](#3-running-a-decentralized-blockchain)
+  - [3.1. Exercises](#31-exercises)
+    - [3.1.1. Proof of work versus proof of stake](#311-proof-of-work-versus-proof-of-stake)
+    - [3.1.2. Blockchain vulnerabilities](#312-blockchain-vulnerabilities)
+  - [3.2. Sample code](#32-sample-code)
+- [4. Stablecoins](#4-stablecoins)
 
 # 1. Installation
 
@@ -80,7 +85,7 @@ For all of the following, you will find the functions in utils.py and example co
 2. In your sample blockchain, adjust the nonce of each block so that the hash of the block has at least 5 leading zeros. Adjust the "previous_hash" of each block accordingly. You will find the proof_of_work and valid_proof methods of the Blockchain class to be useful. How does this relate to Proof of Work as discussed in class?
 
 ## 2.3. Sample code
-See [simulation_lite.py](simulation_lite.py).
+See [simulation_lite.py](paynecoin/simulation_lite.py).
 
 # 3. Running a decentralized blockchain
 
@@ -92,7 +97,7 @@ You will be asked to answer a subset of these on homework 3.
 
 # 3.1.1. Proof of work versus proof of stake
 
-1. Simulate proof of work for a blockchain of length at least 100 involving transactions with at least 5 nodes (hint: [simulation_full.py](simulation_full.py) is a great starting point). Plot the time taken to mine each block as well as balances of each individual over time. Also plot the total money supply over time.
+1. Simulate proof of work for a blockchain of length at least 100 involving transactions with at least 5 nodes (hint: [simulation_full.py](paynecoin/simulation_full.py) is a great starting point). Plot the time taken to mine each block as well as balances of each individual over time. Also plot the total money supply over time.
 2. Simulate another blockchain of the same length and with the same number of nodes, but use proof of stake rather than proof of work to decide which node gets to mine a block at each step. Plot the time taken to mine each block, and compare this with the plot from the previous exercise.
 
 # 3.1.2. Blockchain vulnerabilities
@@ -100,7 +105,7 @@ You will be asked to answer a subset of these on homework 3.
 1. As this code exists, there are no checks against an individual spending more than their balance. What would need to change in the code to fix this? (No code necessary)
 2. This blockchain does not provide encryption. What would an 'attack' based on the lack of encryption look like? What would need to change to provide encryption? (No code necessary)
 
-## 2.3. Sample code
+## 3.2. Sample code
 See [simulation_full.py](simulation_full.py).
 
 # 4. Stablecoins
