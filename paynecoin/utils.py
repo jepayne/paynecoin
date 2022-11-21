@@ -29,9 +29,9 @@ def public_key_to_string(public_key):
     return public_key.public_bytes(
         encoding=serialization.Encoding.PEM,
         format=serialization.PublicFormat.SubjectPublicKeyInfo,
-    ).decode("latin1")[
-        28:-28
-    ]  # A bit of a hack to get rid of trailing uninformative characters
+    ).decode(
+        "latin1"
+    )  # [28:-28]  this would get rid of trailing uninformative characters
 
 
 def string_to_public_key(public_key_string):
